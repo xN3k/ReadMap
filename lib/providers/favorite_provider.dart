@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FavoriteProvider with ChangeNotifier {
-  bool _isFavorite = false;
+  bool _isFavorite = true;
   int _favoriteCount = 0;
 
   bool get isFavorite => _isFavorite;
