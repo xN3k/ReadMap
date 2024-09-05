@@ -1,5 +1,6 @@
 import 'package:book_app/providers/book_provider.dart';
 import 'package:book_app/providers/favorite_provider.dart';
+import 'package:book_app/providers/theme_provider.dart';
 import 'package:book_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ void main() {
       ChangeNotifierProvider(
           create: (BuildContext context) => FavoriteProvider()),
       ChangeNotifierProvider(create: (context) => BookProvider()),
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ], child: const MyApp()),
   );
 }
@@ -23,10 +25,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: Provider.of<ThemeProvider>(context).currentTheme,
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      // ),
       home: const HomeScreen(),
     );
   }

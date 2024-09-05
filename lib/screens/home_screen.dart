@@ -1,4 +1,5 @@
 import 'package:book_app/providers/book_provider.dart';
+import 'package:book_app/providers/theme_provider.dart';
 import 'package:book_app/screens/book_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,9 +29,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final bookProvider = Provider.of<BookProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Book'),
+          actions: [
+            IconButton(
+              onPressed: themeProvider.toggleTheme,
+              icon: themeProvider.isDark
+                  ? const Icon(Icons.light_mode_outlined)
+                  : const Icon(Icons.dark_mode_outlined),
+            ),
+          ],
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
