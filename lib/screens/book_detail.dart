@@ -1,6 +1,8 @@
 import 'package:book_app/models/book.dart';
-import 'package:book_app/widgets/saved_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/favorite_provider.dart';
 
 class BookDetail extends StatelessWidget {
   const BookDetail({super.key, required this.book});
@@ -10,6 +12,8 @@ class BookDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(book.title),
@@ -45,10 +49,17 @@ class BookDetail extends StatelessWidget {
                 'Publisished: ${book.publishedDate}',
                 style: theme.bodySmall,
               ),
-              // const SizedBox(
-              //   height: 5,
-              // ),
-              const SavedButton(),
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    favoriteProvider.favoriteBook(book);
+                  },
+                  label: const Text('Add to Favorite'),
+                  icon: favoriteProvider.favoriteList.contains(book)
+                      ? const Icon(Icons.favorite)
+                      : const Icon(Icons.favorite_border),
+                ),
+              ),
               Text('Description', style: theme.titleMedium),
               Container(
                 margin: const EdgeInsets.all(10),

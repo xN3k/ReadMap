@@ -10,7 +10,7 @@ void main() {
     MultiProvider(providers: [
       ChangeNotifierProvider(
           create: (BuildContext context) => FavoriteProvider()),
-      ChangeNotifierProvider(create: (context) => BookProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => BookProvider()),
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ], child: const MyApp()),
   );
