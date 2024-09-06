@@ -49,6 +49,9 @@ class BookDetail extends StatelessWidget {
                 'Publisished: ${book.publishedDate}',
                 style: theme.bodySmall,
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Center(
                 child: ElevatedButton.icon(
                   onPressed: () {
@@ -59,6 +62,9 @@ class BookDetail extends StatelessWidget {
                       ? const Icon(Icons.favorite)
                       : const Icon(Icons.favorite_border),
                 ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Text('Description', style: theme.titleMedium),
               Container(

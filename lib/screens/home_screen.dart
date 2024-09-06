@@ -47,10 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.favorite),
             label: 'Favorite',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
         ],
       ),
       body: <Widget>[
@@ -59,9 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
         /// Favorite page
         const FavoriteScreen(),
-
-        /// Search page
-        const SearchSection(),
       ][currentPageIndex],
     );
   }

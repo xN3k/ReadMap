@@ -19,7 +19,6 @@ class BookService {
         throw Exception('Failed to Load Book');
       }
     } catch (e) {
-      print(e);
       throw Exception(e);
     }
   }
