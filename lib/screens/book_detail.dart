@@ -14,6 +14,7 @@ class BookDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    final savedProvider = Provider.of<SavedProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,12 +56,10 @@ class BookDetail extends StatelessWidget {
               ),
               Center(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        final savedProvider =
-                            Provider.of<SavedProvider>(context, listen: false);
-
                         // Call toggleSaved and handle the result
                         await savedProvider.toggleSaved(book);
 
@@ -75,7 +74,9 @@ class BookDetail extends StatelessWidget {
                       child: const Text('Save'),
                     ),
                     IconButton(
-                        onPressed: () async {},
+                        onPressed: () {
+                          favoriteProvider.favoriteBook(book);
+                        },
                         icon: favoriteProvider.favoriteList.contains(book)
                             ? const Icon(Icons.favorite)
                             : const Icon(Icons.favorite_border))
