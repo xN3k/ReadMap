@@ -1,5 +1,6 @@
 import 'package:book_app/providers/book_provider.dart';
 import 'package:book_app/providers/favorite_provider.dart';
+import 'package:book_app/providers/saved_provider.dart';
 import 'package:book_app/providers/theme_provider.dart';
 import 'package:book_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ void main() {
           create: (BuildContext context) => FavoriteProvider()),
       ChangeNotifierProvider(create: (BuildContext context) => BookProvider()),
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ChangeNotifierProvider(create: (context) => SavedProvider()),
     ], child: const MyApp()),
   );
 }

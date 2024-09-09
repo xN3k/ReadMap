@@ -1,25 +1,24 @@
+import 'package:book_app/database/books_db.dart';
 import 'package:book_app/models/book.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteProvider with ChangeNotifier {
   bool _isFavorite = true;
-  int _favoriteCount = 0;
   final List<Book> _favoriteList = [];
 
   bool get isFavorite => _isFavorite;
-  int get favoriteCount => _favoriteCount;
   List<Book> get favoriteList => _favoriteList;
 
-  void favoriteBook(Book book) {
+  Future<void> favoriteBook(Book book) async {
     if (_favoriteList.contains(book)) {
       _favoriteList.remove(book);
-      _favoriteCount -= 1;
-      _isFavorite = true;
+      _isFavorite = false;
+      await DatabaseHelper.instance.toggleFavorite(book.id, isFavorite);
       notifyListeners();
     } else {
       _favoriteList.add(book);
-      _favoriteCount += 1;
-      _isFavorite = false;
+      _isFavorite = true;
+      await DatabaseHelper.instance.getFavorites();
       notifyListeners();
     }
   }

@@ -1,5 +1,6 @@
 import 'package:book_app/providers/theme_provider.dart';
 import 'package:book_app/screens/favorite_screen.dart';
+import 'package:book_app/screens/saved.dart';
 import 'package:book_app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
+
+          //Saved Icon
+          NavigationDestination(
+            icon: Icon(Icons.save_alt_outlined),
+            label: 'Saved',
+          ),
+
+          // Favorite Icon
           NavigationDestination(
             icon: Icon(Icons.favorite),
             label: 'Favorite',
@@ -52,6 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: <Widget>[
         /// Home page
         const SearchSection(),
+
+        //saved page
+        const SavedScreen(),
 
         /// Favorite page
         const FavoriteScreen(),

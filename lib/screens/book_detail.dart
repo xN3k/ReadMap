@@ -1,4 +1,5 @@
 import 'package:book_app/models/book.dart';
+import 'package:book_app/providers/saved_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,14 +54,32 @@ class BookDetail extends StatelessWidget {
                 height: 10,
               ),
               Center(
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    favoriteProvider.favoriteBook(book);
-                  },
-                  label: const Text('Add to Favorite'),
-                  icon: favoriteProvider.favoriteList.contains(book)
-                      ? const Icon(Icons.favorite)
-                      : const Icon(Icons.favorite_border),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        final savedProvider =
+                            Provider.of<SavedProvider>(context, listen: false);
+
+                        // Call toggleSaved and handle the result
+                        await savedProvider.toggleSaved(book);
+
+                        // Show a SnackBar based on the result
+                        SnackBar snackBar = SnackBar(
+                          content: Text(savedProvider.isSaved
+                              ? 'Book saved successfully'
+                              : 'Failed to save book'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: const Text('Save'),
+                    ),
+                    IconButton(
+                        onPressed: () async {},
+                        icon: favoriteProvider.favoriteList.contains(book)
+                            ? const Icon(Icons.favorite)
+                            : const Icon(Icons.favorite_border))
+                  ],
                 ),
               ),
               const SizedBox(

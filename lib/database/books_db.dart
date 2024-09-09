@@ -49,7 +49,11 @@ class DatabaseHelper {
 
   Future<int> insert(Book book) async {
     Database db = await instance.database;
-    return await db.insert(_tableName, book.toJson());
+    return await db.insert(
+      _tableName,
+      book.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<Book>> readAllBooks() async {
@@ -60,6 +64,12 @@ class DatabaseHelper {
         : [];
   }
 
+  Future<int> toggleFavorite(String id, bool isFavorite) async {
+    Database db = await instance.database;
+    return await db.update(_tableName, {'favorite': isFavorite ? 1 : 0},
+        where: 'id = ?', whereArgs: [id]);
+  }
+
   Future<int> deleteBook(String id) async {
     Database db = await instance.database;
     return await db.delete(_tableName, where: 'id=?', whereArgs: [id]);
@@ -67,12 +77,10 @@ class DatabaseHelper {
 
   Future<List<Book>> getFavorites() async {
     Database db = await instance.database;
-    var favoriteBook =
+    var favBook =
         await db.query(_tableName, where: 'favorite=?', whereArgs: [1]);
-    return favoriteBook.isNotEmpty
-        ? favoriteBook
-            .map((bookData) => Book.fromJsonDatabase(bookData))
-            .toList()
+    return favBook.isNotEmpty
+        ? favBook.map((bookData) => Book.fromJsonDatabase(bookData)).toList()
         : [];
   }
 }
