@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('JustBooks'),
+        title: const Text('ReadMap'),
         actions: [
           IconButton(
             onPressed: themeProvider.toggleTheme,
