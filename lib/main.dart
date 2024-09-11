@@ -9,9 +9,8 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(
-          create: (BuildContext context) => FavoriteProvider()),
-      ChangeNotifierProvider(create: (BuildContext context) => BookProvider()),
+      ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+      ChangeNotifierProvider(create: (context) => BookProvider()),
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ChangeNotifierProvider(create: (context) => SavedProvider()),
     ], child: const MyApp()),
