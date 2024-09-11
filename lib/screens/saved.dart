@@ -25,61 +25,67 @@ class _SavedScreenState extends State<SavedScreen> {
     return Consumer<SavedProvider>(
       builder:
           (BuildContext context, SavedProvider savedProvider, Widget? child) {
-        return FutureBuilder(
-          future: savedProvider.savedBooksFuture,
-          builder: (context, snapshot) => snapshot.connectionState ==
-                  ConnectionState.waiting
-              ? const Center(child: CircularProgressIndicator())
-              : snapshot.hasError
-                  ? Center(child: Text('Error: ${snapshot.error}'))
-                  : snapshot.hasData && snapshot.data!.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            Book book = snapshot.data![index];
-                            return InkWell(
-                              child: Card(
-                                child: ListTile(
-                                  trailing: IconButton(
-                                    onPressed: () {
-                                      savedProvider.toggleDelete(book);
-                                      setState(() {});
-                                    },
-                                    icon: const Icon(Icons.delete_outline),
-                                  ),
-                                  leading: book.imageLinks['thumbnail'] != null
-                                      ? Image.network(
-                                          book.imageLinks['thumbnail']!,
-                                          fit: BoxFit.cover,
-                                          width: 50,
-                                          height: 50,
-                                        )
-                                      : Container(
-                                          width: 50,
-                                          height: 50,
-                                          color: Colors.grey[200],
-                                          child: Icon(Icons.book,
-                                              color: Colors.grey[800]),
-                                        ),
-                                  title: Text(book.title),
-                                  subtitle:
-                                      Text('By ${book.authors.join(', ')}'),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => BookDetail(
-                                          book: book,
-                                        ),
+        return Padding(
+          padding: const EdgeInsets.all(16),
+          child: FutureBuilder(
+            future: savedProvider.savedBooksFuture,
+            builder: (context, snapshot) => snapshot.connectionState ==
+                    ConnectionState.waiting
+                ? const Center(child: CircularProgressIndicator())
+                : snapshot.hasError
+                    ? Center(child: Text('Error: ${snapshot.error}'))
+                    : snapshot.hasData && snapshot.data!.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              Book book = snapshot.data![index];
+                              return InkWell(
+                                child: Card(
+                                  child: ListTile(
+                                    trailing: IconButton(
+                                      onPressed: () {
+                                        savedProvider.toggleDelete(book);
+                                        setState(() {});
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete_outline,
                                       ),
-                                    );
-                                  },
+                                    ),
+                                    leading:
+                                        book.imageLinks['thumbnail'] != null
+                                            ? Image.network(
+                                                book.imageLinks['thumbnail']!,
+                                                fit: BoxFit.cover,
+                                                width: 50,
+                                                height: 50,
+                                              )
+                                            : Container(
+                                                width: 50,
+                                                height: 50,
+                                                color: Colors.grey[200],
+                                                child: Icon(Icons.book,
+                                                    color: Colors.grey[800]),
+                                              ),
+                                    title: Text(book.title),
+                                    subtitle:
+                                        Text('By ${book.authors.join(', ')}'),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BookDetail(
+                                            book: book,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        )
-                      : const Center(child: Text('No saved books found.')),
+                              );
+                            },
+                          )
+                        : const Center(child: Text('No saved books found.')),
+          ),
         );
       },
     );

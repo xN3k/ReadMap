@@ -12,7 +12,7 @@ class FavoriteScreen extends StatelessWidget {
     final favoriteProvider = Provider.of<FavoriteProvider>(context);
     final favoriteBooks = favoriteProvider.favoriteList;
     return Padding(
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.all(16),
       child: favoriteBooks.isEmpty
           ? const Center(
               child: Text('No Favorite Book'),

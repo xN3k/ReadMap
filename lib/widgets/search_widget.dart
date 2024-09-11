@@ -18,7 +18,7 @@ class _SearchSectionState extends State<SearchSection> {
   Widget build(BuildContext context) {
     final bookProvider = Provider.of<BookProvider>(context);
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           TextField(
