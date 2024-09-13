@@ -1,4 +1,3 @@
-import 'package:book_app/screens/book_detail.dart';
 import 'package:book_app/widgets/book_list_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
